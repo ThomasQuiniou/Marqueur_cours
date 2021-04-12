@@ -1,0 +1,12 @@
+{
+    "autoload": {
+        "psr-4": {
+            "Models\\": "src/models/",
+            "Manager\\": "src/manager/",
+            "Repository\\": "src/repository/",
+            "Controllers\\": "src/controllers/",
+            "Application\\": "src/",
+            "Database\\": "src/"
+        }
+    }
+}
