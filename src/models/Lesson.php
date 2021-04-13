@@ -70,7 +70,6 @@ class Lesson extends Model {
 
     public function findAll() {
         $req = $this->pdo->query('SELECT * FROM lesson');
-        $req->execute();
 
         $i = 0;
         while($lessons = $req->fetch()) {

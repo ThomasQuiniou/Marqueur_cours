@@ -14,6 +14,7 @@
                 <li><a href="index.php?controller=user&task=inscription">Inscription</a></li>
                 <li><a href="index.php?controller=user&task=connexion">Connexion</a></li>
                 <li><a href="index.php?controller=user&task=deconnexion">Deconnexion</a></li>
+                <li><a href="index.php?controller=lesson&task=show">Lecon</a></li>
             </ul>
         </nav>
     </header>

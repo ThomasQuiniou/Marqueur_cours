@@ -43,7 +43,7 @@ class User extends Controller {
             }
 
             if ($error) {
-                return $this->render('inscription' , [
+                return $this->render('user/inscription' , [
                     'errors' => $errors
                 ]);
 
@@ -61,7 +61,7 @@ class User extends Controller {
             header('location: index.php');
         }
         echo"pasok";
-        return $this->render('inscription');
+        return $this->render('user/inscription');
     }
 
     public function connexion() {
@@ -73,7 +73,7 @@ class User extends Controller {
             $userModel = new ModelsUser();
             $user = $userModel->findAllByEmail($email);
             if(!$user){
-                return $this->render('connexion', [
+                return $this->render('user/connexion', [
                     'error' => 'Votre e-mail ou votre mot de passe est incorrect'
                 ]);
             }
@@ -88,7 +88,7 @@ class User extends Controller {
             }
         }   
         
-        return $this->render('connexion');
+        return $this->render('user/connexion');
     }
 
     public function deconnexion( ){
