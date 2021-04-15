@@ -60,7 +60,6 @@ class User extends Controller {
 
             header('location: index.php');
         }
-        echo"pasok";
         return $this->render('user/inscription');
     }
 
@@ -78,7 +77,7 @@ class User extends Controller {
                 ]);
             }
             if(password_verify($password, $user['password'])){
-                session_start();
+                //session_start();
                 $_SESSION['name'] = $user['name'];
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['firstname'] = $user['firstname'];

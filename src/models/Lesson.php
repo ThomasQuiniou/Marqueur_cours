@@ -69,15 +69,52 @@ class Lesson extends Model {
     }
 
     public function findAll() {
-        $req = $this->pdo->query('SELECT * FROM lesson');
+        $lessons = $this->pdo->query('SELECT * FROM lesson');
 
-        $i = 0;
-        while($lessons = $req->fetch()) {
-            $i++;
-            $lesson[$i]['id'] = $lessons['id'];
-            $lesson[$i]['name'] = $lessons['name'];
-            $lesson[$i]['heure_depart'] = $lessons['heure_depart'];
-        }
-        return $lesson;
+        return $lessons->fetchAll();
     }
+    public function findById($id) {
+        $lessons = $this->pdo->prepare('SELECT * FROM lesson WHERE id = :id');
+        $lessons->execute([
+            'id' => $id
+        ]);
+        $lesson = $lessons->fetch();
+
+        $this->setName($lesson['name']);
+        $this->setId($lesson['id']);
+        $this->setHeure_depart($lesson['heure_depart']);
+    }
+
+    public function insert(){
+        $name = $this->getName();
+        $time = $this->getHeure_depart();
+        if(!$time){
+            $time = null;
+        }
+        $lesson = $this->pdo->prepare('INSERT INTO lesson SET name = :name, heure_depart = :time');
+        $lesson->execute([
+            'name' => $name,
+            'time' => $time
+        ]);
+        //recuperer le dernier id de l'insertion'
+        $id = $this->pdo->lastInsertId();
+
+        $this->setId($id);
+    }
+
+    public function update() {
+
+        $id = $this->getId();
+        $name = $this->getName();
+        $time = $this->getHeure_depart();
+
+        $lesson = $this->pdo->prepare('UPDATE lesson SET name = :name, heure_depart = :time WHERE id = :id');
+        $lesson->execute([
+            'name' => $name,
+            'time' => $time,
+            'id' => $id
+        ]);
+
+    }
+    
 }

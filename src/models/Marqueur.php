@@ -7,7 +7,7 @@ class Marqueur extends Model {
     private $id_user;
     private $id_lesson;
     private $marqueur_time;
-
+    private $content;
     
 
     /**
@@ -88,5 +88,66 @@ class Marqueur extends Model {
         $this->marqueur_time = $marqueur_time;
 
         return $this;
+    }
+
+    /**
+     * Get the value of content
+     */ 
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * Set the value of content
+     *
+     * @return  self
+     */ 
+    public function setContent($content)
+    {
+        $this->content = $content;
+
+        return $this;
+    }
+    public function insert(){
+        $time = $this->getMarqueur_time();
+        $user = $this->getId_user();
+        $lesson = $this->getId_lesson();
+        $content = null;
+        $marqueurs = $this->pdo->prepare('INSERT INTO marqueur SET id_user = :user, id_lesson = :lesson, marqueur_time = :time, content = :content');
+        $marqueurs->execute([
+            'user' => $user,
+            'lesson' => $lesson,
+            'time' => $time,
+            'content' => $content
+        ]);
+        $this->setId($this->pdo->lastInsertId());
+    }
+    public function update() {
+        $id = $this->getId();
+        $content = $this->getContent();
+        $marqueurs = $this->pdo->prepare('UPDATE marqueur SET content = :content WHERE id = :id');
+        $marqueurs->execute([
+            'content' => $content,
+            'id' => $id
+        ]);
+    }
+    public function findByLesson(){
+        $lesson = $this->getId_lesson();
+        $marqueurs = $this->pdo->prepare('SELECT * FROM marqueur WHERE id_lesson = :lesson');
+        $marqueurs->execute([
+            'lesson' => $lesson]);
+        return $marqueurs->fetchAll();
+    }
+    public function findById(){
+        $id = $this->getId();
+
+        $marqueurs = $this->pdo->prepare('SELECT * FROM marqueur WHERE id = :id');
+        $marqueurs->execute(['id' => $id]);
+        $marqueur =  $marqueurs->fetch();
+        $this->setId_lesson($marqueur['id_lesson']);
+        $this->setId_user($marqueur['id_user']);
+        $this->setContent($marqueur['content']);
+
     }
 }

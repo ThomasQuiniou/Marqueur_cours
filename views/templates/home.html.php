@@ -1,2 +1,3 @@
+<?php $title = "Home" ?>
 <h1>Home</h1>
-<p><?=$_SESSION['name']?></p>
+<p><?=!empty($_SESSION['id']) ? $_SESSION['name'] : ""?></p>
