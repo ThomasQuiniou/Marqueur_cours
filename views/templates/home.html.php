@@ -1,3 +1,9 @@
 <?php $title = "Home" ?>
-<h1>Home</h1>
-<p><?=!empty($_SESSION['id']) ? $_SESSION['name'] : ""?></p>
+<?php
+
+    if(is_granted('ROLE_USER')){
+        ?>
+            <h1>Bienvenue <?=$_SESSION['firstname']?> <?=$_SESSION['name']?></h1>
+        <?php
+    }
+    ?>

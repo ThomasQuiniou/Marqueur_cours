@@ -82,6 +82,7 @@ class User extends Controller {
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['firstname'] = $user['firstname'];
                 $_SESSION['id'] = $user['id'];
+                $_SESSION['roles'] = $user['roles'];
 
                 header('location: index.php');
             }

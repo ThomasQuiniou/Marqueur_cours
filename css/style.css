@@ -14,19 +14,15 @@ html{
     justify-content: center;
 }
 .container{
-    max-width: 95%;
+    max-width: 90%;
     margin: auto;
 }
-@media screen and (min-width: 90rem){
-    .container{
-        max-width: 90rem;
-    }
-}
+
 
 /*header*/
 
 
-.nav-list{
+.main-header .nav-list{
     display: flex;
     text-transform: uppercase;
     font-size: 1.2rem;
@@ -34,15 +30,15 @@ html{
 }
 
 @media screen and (min-width:400px){
-    .nav-list{
+    .main-header .nav-list{
         font-size: 1.6rem;
     }
 
 }
-.list-item{
+.main-header .list-item{
     list-style: none;
 }
-.item-link{
+.main-header .item-link{
     text-decoration: none;
     color: white;
     display: block;
@@ -51,19 +47,20 @@ html{
 
     transition: .3s;
 }
-.item-link:hover{
+.main-header .item-link:hover{
     color: rgb(104, 103, 103);
     background-color: white;
 }
 
 /*form*/
-.form-connexion-title{
+h1{
+    padding-bottom: 3rem;
     text-align: center;
     color: rgb(104, 103, 103);
     text-decoration: underline;
+    font-size: 3rem;
 }
-.form-inscription, .form-connexion{
-    height: 100vh;
+.form-inscription, .form-connexion, .form_lesson_creation{
     font-size: 1.8rem;
     max-width: 50rem;
     margin: auto;
@@ -73,10 +70,11 @@ html{
     line-height: 2;
     border-radius: 5px;
 }
-.form-inscription div, .form-connexion div{
+.form-inscription div, .form-connexion div, .form_lesson_creation div{
     padding-left: 1rem;
     padding-right: 1rem;
     margin: auto;
+    margin-top: 0;
     padding-top: 4rem;
     padding-bottom: 4rem;
 }
@@ -86,13 +84,20 @@ html{
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
-.form-inscription input, .form-connexion input{
+.form-inscription input, .form-connexion input, .form_lesson_creation input, .form_lesson_creation button{
     width: 100%;
     font-size: 2rem;
     padding: 1rem;
     color: rgb(104, 103, 103);
     border-radius: 5px;
     border: 2px solid #fd7e37;
+}
+button.gris{
+    margin-top: 2rem;
+    border: 2px solid rgb(104, 103, 103);
+    width: max-content;
+    background: none;
+
 }
 .form-inscription button, .form-connexion button{
     font-size: 2rem;
@@ -108,3 +113,56 @@ html{
 }
 
 /* Connexion */
+.lesson-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    max-width: 90rem;
+    margin: auto;
+    gap: 2rem;
+}
+.lesson-list .list-item{
+    list-style: none;
+    padding-left: 0;
+}
+
+.lesson-list .item-link {
+    max-width: 28rem;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow:0 0 15px rgba(175, 175, 175, 0.8);
+    border: solid 2.5px #686767ff;
+    border-radius: 10px;
+    color: #686767ff;
+    text-decoration: none;
+}
+.lesson-list .item-link:hover{
+    color: white;
+    background-color: #c5c5c5;
+    transform: scale(1.03);
+}
+
+.lesson-list h2 {
+    margin-bottom: 4rem;
+    margin-top: 3rem;
+    text-transform: uppercase;
+    font-family: Arial;
+    font-size: 1.6rem;
+}
+
+
+
+
+.style-img {
+    min-width: 90%;
+    border-radius: 50%;
+    background: white;
+  }
+  
+  
+  .lesson-list img {
+    width: 100%;
+  }
+  

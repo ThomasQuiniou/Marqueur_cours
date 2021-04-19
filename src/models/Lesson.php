@@ -6,7 +6,7 @@ class Lesson extends Model {
     private $id;
     private $name;
     private $heure_depart;
-
+    private $time_end;
 
     /**
      * Get the value of id
@@ -68,8 +68,32 @@ class Lesson extends Model {
         return $this;
     }
 
+    
+
+    /**
+     * Get the value of time_end
+     */ 
+    public function getTime_end()
+    {
+        return $this->time_end;
+    }
+
+    /**
+     * Set the value of time_end
+     *
+     * @return  self
+     */ 
+    public function setTime_end($time_end)
+    {
+        $this->time_end = $time_end;
+
+        return $this;
+    }
+
+
+
     public function findAll() {
-        $lessons = $this->pdo->query('SELECT * FROM lesson');
+        $lessons = $this->pdo->query('SELECT * FROM lesson ORDER BY heure_depart DESC');
 
         return $lessons->fetchAll();
     }
@@ -83,6 +107,7 @@ class Lesson extends Model {
         $this->setName($lesson['name']);
         $this->setId($lesson['id']);
         $this->setHeure_depart($lesson['heure_depart']);
+        $this->setTime_end($lesson['time_end']);
     }
 
     public function insert(){
@@ -91,7 +116,7 @@ class Lesson extends Model {
         if(!$time){
             $time = null;
         }
-        $lesson = $this->pdo->prepare('INSERT INTO lesson SET name = :name, heure_depart = :time');
+        $lesson = $this->pdo->prepare('INSERT INTO lesson SET name = :name, heure_depart = :time, time_end = null');
         $lesson->execute([
             'name' => $name,
             'time' => $time
@@ -107,14 +132,15 @@ class Lesson extends Model {
         $id = $this->getId();
         $name = $this->getName();
         $time = $this->getHeure_depart();
+        $time_end = $this->getTime_end();
 
-        $lesson = $this->pdo->prepare('UPDATE lesson SET name = :name, heure_depart = :time WHERE id = :id');
+        $lesson = $this->pdo->prepare('UPDATE lesson SET name = :name, heure_depart = :time, time_end = :time_end WHERE id = :id');
         $lesson->execute([
             'name' => $name,
             'time' => $time,
-            'id' => $id
+            'id' => $id,
+            'time_end' => $time_end
         ]);
 
     }
-    
 }

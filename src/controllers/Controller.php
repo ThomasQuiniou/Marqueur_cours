@@ -11,4 +11,10 @@ class Controller{
         require('views/layout.html.php');
         exit;
     }
+
+    protected function isGranted($role){
+        if(!is_granted($role)){
+            header('location: index.php');
+        }
+    }
 }

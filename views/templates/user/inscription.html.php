@@ -1,7 +1,7 @@
 <?php $title = "Inscription" ?>
 <form class="form-inscription" action="" method="POST">
     <div>
-        <h2 class="form-connexion-title">Marker zOOm</h2>
+        <h1>Marker zOOm</h1>
         <label for="name">Nom :</label>
         <input type="text" name="name" id="name">
 
@@ -20,7 +20,7 @@
         <label for="passwordConfirm">Confirmez votre mot de passe :</label>
         <input type="password" name="passwordConfirm" id="passwordConfirm">
 
-        <button type="submit">Inscription</button> 
+        <button class="gris" type="submit">Inscription</button> 
     </div>
       
 </form>

@@ -150,4 +150,22 @@ class Marqueur extends Model {
         $this->setContent($marqueur['content']);
 
     }
+    public function findLessonMarqueurUserByLesson(){
+        $lesson = $this->getId_lesson();
+
+        $marqueurs = $this->pdo->prepare('SELECT user.name as name_user, firstname, marqueur_time, marqueur.id, content, heure_depart
+                                        FROM marqueur
+                                        INNER JOIN user 
+                                        ON marqueur.id_user =  user.id 
+                                        INNER JOIN lesson
+                                        ON marqueur.id_lesson = lesson.id
+                                        WHERE marqueur.id_lesson = :lesson
+                                        AND marqueur.content != "" 
+                                        ORDER BY marqueur_time DESC');
+    
+    $marqueurs->execute([
+        'lesson' => $lesson]);
+        return $marqueurs->fetchAll();
+    }
+
 }
