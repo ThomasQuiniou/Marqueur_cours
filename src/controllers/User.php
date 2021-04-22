@@ -36,7 +36,7 @@ class User extends Controller {
             $number = preg_match('@[0-9]@', $password);
             $specialchars = preg_match('@[^\w]@', $password);
 
-            if ( !$uppercase && !$lowercase && !$number && !$specialchars && strlen($password) < 8 ){
+            if ( !$uppercase || !$lowercase || !$number || !$specialchars || strlen($password) < 8 ){
                 $error = true;
                 array_push($errors, 'Votre mot de passe doit contenir au moins 8 caractères, une majuscule, une minuscule, un chiffre et un caractère spécial !');
 

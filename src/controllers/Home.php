@@ -2,16 +2,22 @@
 
 namespace Controllers;
 
-use Models\Lesson;
+
+use Models\Marqueur;
 
 class Home extends Controller {
 
     public function view() {
-        $lessons = new Lesson();
+    $marqueur = null;
+        if(is_granted('ROLE_USER')){
+            $marqueurs = new Marqueur;
+            $marqueurs->setId_user($_SESSION['id']);
+            $marqueur = $marqueurs->findLessonMarqueurUserByUser();
+        }
 
-        //session_start();
+
         return $this->render('home', [
-            'lessons' => $lessons->findAll()
+            "marqueurs" => $marqueur
         ]);
     }
 }

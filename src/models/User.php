@@ -8,6 +8,7 @@ class User extends Model {
     private $firstname;
     private $email;
     private $password;
+    private $roles = [];
     
 
     /**
@@ -110,21 +111,52 @@ class User extends Model {
         return $this;
     }
 
+    
+    /**
+     * Get the value of roles
+     */ 
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * Set the value of roles
+     *
+     * @return  self
+     */ 
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+
+
+
+
     //Sert a inserer un nouveau utilisateur
 
     public function push() {
-        $insertUser = $this->pdo->prepare('INSERT INTO user SET name = :name, firstname = :firstname, email = :email, password = :password');
+        $roles = ['ROLE_USER'];
+        $this->setRoles($roles);
+        $insertUser = $this->pdo->prepare('INSERT INTO user SET name = :name, firstname = :firstname, email = :email, password = :password, roles = :roles');
         $insertUser->execute([
             'name' => $this->getName(),
             'firstname' => $this->getFirstname(),
             'email' => $this->getEmail(),
-            'password' => $this->getPassword()
+            'password' => $this->getPassword(),
+            'roles' => json_encode($this->getRoles())
         ]);
     }
 
-    /* public function emailExist($email){
-        $req = this->pdo->prepare('SELECT email FROM user WHERE email = :email')
-    } */
+    public function emailExist($email){
+        $req = $this->pdo->prepare('SELECT email FROM user WHERE email = :email');
+        $req->execute(['email' => $email]);
+
+        return $req->rowCount();
+    } 
 
     public function findAllByEmail($email){
         $req = $this->pdo->prepare('SELECT * FROM user WHERE email = :email');
@@ -133,5 +165,3 @@ class User extends Model {
         return $req->fetch();
     }
 }
-
-

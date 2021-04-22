@@ -164,8 +164,22 @@ class Marqueur extends Model {
                                         ORDER BY marqueur_time DESC');
     
     $marqueurs->execute([
-        'lesson' => $lesson]);
+        'lesson' => $lesson]);  
         return $marqueurs->fetchAll();
+    }
+
+    public function findLessonMarqueurUserByUser(){
+        $user = $this->getId_user();
+
+        $marqueur = $this->pdo->prepare('SELECT lesson.name as name_lesson, marqueur_time, content
+                                        FROM marqueur
+                                        INNER JOIN lesson
+                                        ON marqueur.id_lesson = lesson.id
+                                        WHERE id_user = :user
+                                        ORDER BY marqueur_time DESC
+                                        LIMIT 10 ');
+        $marqueur->execute(['user' => $user]);
+        return $marqueur->fetchAll();
     }
 
 }
